@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace KafeKod
 {
-    public partial class Form1 : Form
+    public partial class UrunlerForm : Form
     {
-        public Form1()
+        public UrunlerForm()
         {
             InitializeComponent();
-        }
-
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

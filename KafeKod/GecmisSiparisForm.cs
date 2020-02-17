@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace KafeKod
 {
-    public partial class Form1 : Form
+    public partial class GecmisSiparisForm : Form
     {
-        public Form1()
+        public GecmisSiparisForm()
         {
             InitializeComponent();
-        }
-
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
