@@ -57,6 +57,7 @@
             this.tsmiGecmisSiparis.Name = "tsmiGecmisSiparis";
             this.tsmiGecmisSiparis.Size = new System.Drawing.Size(108, 20);
             this.tsmiGecmisSiparis.Text = "Geçmiş Siparişler";
+            this.tsmiGecmisSiparis.Click += new System.EventHandler(this.tsmiGecmisSiparis_Click);
             // 
             // lvwMasalar
             // 
@@ -67,6 +68,7 @@
             this.lvwMasalar.TabIndex = 1;
             this.lvwMasalar.UseCompatibleStateImageBehavior = false;
             this.lvwMasalar.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            this.lvwMasalar.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvwMasalar_MouseDoubleClick);
             // 
             // Form1
             // 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KafeKod.Data;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,26 @@ namespace KafeKod
 {
     public partial class GecmisSiparisForm : Form
     {
-        public GecmisSiparisForm()
+        KafeVeri db;
+
+        public GecmisSiparisForm(KafeVeri kafeVeri)
         {
+            db = kafeVeri;
             InitializeComponent();
+
+            dgvSiparisler.DataSource = db.GecmisSiparisler;
+        }
+
+        private void dgvSiparisler_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvSiparisler.SelectedRows.Count > 0)
+            {
+                DataGridViewRow satir = dgvSiparisler.SelectedRows[0];
+                Siparis siparis = (Siparis)satir.DataBoundItem;
+                dgvSiparisDetay.DataSource = siparis.SiparisDetaylar;
+
+
+            }
         }
     }
 }
