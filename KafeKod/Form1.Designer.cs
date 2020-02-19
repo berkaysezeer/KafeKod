@@ -51,6 +51,7 @@
             this.tsmiUrunler.Name = "tsmiUrunler";
             this.tsmiUrunler.Size = new System.Drawing.Size(58, 20);
             this.tsmiUrunler.Text = "Ürünler";
+            this.tsmiUrunler.Click += new System.EventHandler(this.tsmiUrunler_Click_1);
             // 
             // tsmiGecmisSiparis
             // 
@@ -83,6 +84,7 @@
             this.MinimumSize = new System.Drawing.Size(800, 520);
             this.Name = "Form1";
             this.Text = "Kafe Kod";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
