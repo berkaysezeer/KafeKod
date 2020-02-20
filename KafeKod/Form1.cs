@@ -123,11 +123,8 @@ namespace KafeKod
                 }
 
                 SiparisForm frmSiparis = new SiparisForm(db, sip);
-                frmSiparis.MasaTasindi += FrmSiparis_MasaTasindi;
+                frmSiparis.MasaTasiniyor += FrmSiparis_MasaTasiniyor;
                 frmSiparis.ShowDialog();
-
-
-
 
                 if (sip.Durum != SiparisDurum.Aktif)
                 {
@@ -139,22 +136,17 @@ namespace KafeKod
             }
         }
 
-        private void FrmSiparis_MasaTasindi(object sender, MasaTasimaEventArgs e)
+        private void FrmSiparis_MasaTasiniyor(object sender, MasaTasimaEventArgs e)
         {
             //adim1: eski masayi bosalt
-            ListViewItem lviEskiMasa = null;
-            foreach (ListViewItem item in lvwMasalar.Items)
-            {
-                if (item.Tag == e.TasinanSiparis)
-                {
-                    lviEskiMasa = item;
-                    break;
-                }
-
-                lviEskiMasa.Tag = e.EskiMasaNo;
-                lviEskiMasa.ImageKey = "bos";
-            }
+            ListViewItem lviEskiMasa = MasaBul(e.EskiMasaNo);
+            lviEskiMasa.Tag = e.EskiMasaNo;
+            lviEskiMasa.ImageKey = "bos";
             //adim2: yeni masaya siparisi koy
+
+            ListViewItem lviYeniMasa = MasaBul(e.YeniMasaNo);
+            lviYeniMasa.Tag = e.TasinanSiparis;
+            lviYeniMasa.ImageKey = "dolu";
         }
 
         private void tsmiGecmisSiparis_Click(object sender, EventArgs e)
@@ -173,6 +165,20 @@ namespace KafeKod
         {
             string json = JsonConvert.SerializeObject(db);
             File.WriteAllText("veri.json", json);
+        }
+
+        private ListViewItem MasaBul(int masaNo)
+        {
+            foreach (ListViewItem item in lvwMasalar.Items)
+            {
+                if (item.Tag is int && (int)item.Tag == masaNo)
+                {
+                    return item;
+                }
+                else if (item.Tag is Siparis && ((Siparis)item.Tag).MasaNo == masaNo)
+                    return item;
+            }
+            return null;
         }
     }
 }
