@@ -19,7 +19,7 @@
                         SiparisId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Siparisler", t => t.SiparisId,  : true)
+                .ForeignKey("dbo.Siparisler", t => t.SiparisId, cascadeDelete: true)
                 .ForeignKey("dbo.Urunler", t => t.UrunId, cascadeDelete: true)
                 .Index(t => t.UrunId)
                 .Index(t => t.SiparisId);

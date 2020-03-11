@@ -46,6 +46,9 @@
             this.lblTutar = new System.Windows.Forms.Label();
             this.cmsSiparisDetay = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmiSiparisSil = new System.Windows.Forms.ToolStripMenuItem();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.nudAdet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSiparisDetay)).BeginInit();
             this.cmsSiparisDetay.SuspendLayout();
@@ -147,6 +150,10 @@
             this.dgvSiparisDetay.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvSiparisDetay.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvSiparisDetay.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvSiparisDetay.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2,
+            this.Column3});
             this.dgvSiparisDetay.Location = new System.Drawing.Point(16, 67);
             this.dgvSiparisDetay.Name = "dgvSiparisDetay";
             this.dgvSiparisDetay.ReadOnly = true;
@@ -245,6 +252,27 @@
             this.tsmiSiparisSil.Text = "Sil";
             this.tsmiSiparisSil.Click += new System.EventHandler(this.tsmiSiparisSil_Click);
             // 
+            // Column1
+            // 
+            this.Column1.DataPropertyName = "UrunAd";
+            this.Column1.HeaderText = "Ürün Adı";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            this.Column2.DataPropertyName = "BirimFiyat";
+            this.Column2.HeaderText = "Birim Fiyatı";
+            this.Column2.Name = "Column2";
+            this.Column2.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            this.Column3.DataPropertyName = "Adet";
+            this.Column3.HeaderText = "Adet";
+            this.Column3.Name = "Column3";
+            this.Column3.ReadOnly = true;
+            // 
             // SiparisForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -270,6 +298,7 @@
             this.MinimumSize = new System.Drawing.Size(800, 520);
             this.Name = "SiparisForm";
             this.Text = "SiparisForm";
+            this.Load += new System.EventHandler(this.SiparisForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudAdet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSiparisDetay)).EndInit();
             this.cmsSiparisDetay.ResumeLayout(false);
@@ -297,5 +326,8 @@
         private System.Windows.Forms.Label lblTutar;
         private System.Windows.Forms.ContextMenuStrip cmsSiparisDetay;
         private System.Windows.Forms.ToolStripMenuItem tsmiSiparisSil;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
     }
 }

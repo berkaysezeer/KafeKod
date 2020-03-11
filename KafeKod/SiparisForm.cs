@@ -18,27 +18,26 @@ namespace KafeKod
 
         KafeContext db;
         Siparis siparis;
-        BindingList<SiparisDetay> blSiparisDetay;
 
         public SiparisForm(KafeContext kafeVeri, Siparis siparis)
         {
             db = kafeVeri;
             this.siparis = siparis;
-            blSiparisDetay = new BindingList<SiparisDetay>(siparis.SiparisDetaylar); //datagridviewi tetikler
             InitializeComponent();
+            dgvSiparisDetay.AutoGenerateColumns = false; //tum sutunlarin gelmesini engeller
             MasaNoYukle();
             MasaNoGuncelle();
             TutarGuncelle();
-            cboUrun.DataSource = db.Urunler;
-            dgvSiparisDetay.DataSource = blSiparisDetay;
+            cboUrun.DataSource = db.Urunler.ToList();
+            dgvSiparisDetay.DataSource = siparis.SiparisDetaylar;
         }
 
         private void MasaNoYukle()
         {
             cboMasaNo.Items.Clear();
-            for (int i = 1; i <= db.MasaAdet; i++)
+            for (int i = 1; i <= Properties.Settings.Default.MasaAdet; i++)
             {
-                if (!db.AktifSiparisler.Any(x => x.MasaNo == i)) //aktif siparislerde masa nosu i olan yoksa
+                if (!db.Siparisler.Any(x => x.MasaNo == i && x.Durum == SiparisDurum.Aktif)) //aktif siparislerde masa nosu i olan yoksa
                 {
                     cboMasaNo.Items.Add(i);
                 }
@@ -49,7 +48,8 @@ namespace KafeKod
 
         private void TutarGuncelle()
         {
-            lblTutar.Text = siparis.ToplamTutarTl;
+            lblTutar.Text = siparis.SiparisDetaylar
+                .Sum(x => x.Adet * x.BirimFiyat).ToString("0.00") + "₺";
         }
 
         private void MasaNoGuncelle()
@@ -70,12 +70,15 @@ namespace KafeKod
 
             var sd = new SiparisDetay
             {
+                UrunId = seciliUrun.Id,
                 UrunAd = seciliUrun.UrunAd,
                 BirimFiyat = seciliUrun.BirimFiyat,
                 Adet = (int)nudAdet.Value
             };
 
-            blSiparisDetay.Add(sd);
+            siparis.SiparisDetaylar.Add(sd);
+            db.SaveChanges();
+            dgvSiparisDetay.DataSource = new BindingSource(siparis.SiparisDetaylar, null);
             nudAdet.Value = 1;
             cboUrun.SelectedIndex = 0;
             TutarGuncelle();
@@ -97,6 +100,8 @@ namespace KafeKod
                 Close();
                 siparis.KapanisZamani = DateTime.Now;
                 siparis.Durum = SiparisDurum.Iptal;
+                db.SaveChanges();
+                Close();
             }
         }
 
@@ -112,7 +117,8 @@ namespace KafeKod
             {
                 siparis.KapanisZamani = DateTime.Now;
                 siparis.Durum = SiparisDurum.Odendi;
-                siparis.OdenenTutar = siparis.ToplamTutar();
+                siparis.OdenenTutar = siparis.SiparisDetaylar.Sum(x => x.Adet * x.BirimFiyat);
+                db.SaveChanges();
                 Close();
 
             }
@@ -123,13 +129,11 @@ namespace KafeKod
             if (e.Button == MouseButtons.Right)
             {
                 int rowIndex = dgvSiparisDetay.HitTest(e.X, e.Y).RowIndex;
-                //MessageBox.Show(rowIndex.ToString());
                 if (rowIndex > -1)
                 {
                     dgvSiparisDetay.ClearSelection();
                     dgvSiparisDetay.Rows[rowIndex].Selected = true;
                     cmsSiparisDetay.Show(Cursor.Position);
-                    //cmsSiparisDetay.Show(MousePosition);
                 }
 
             }
@@ -141,7 +145,9 @@ namespace KafeKod
             {
                 var seciliSatir = dgvSiparisDetay.SelectedRows[0];
                 var sipDetay = (SiparisDetay)seciliSatir.DataBoundItem;
-                blSiparisDetay.Remove(sipDetay);
+
+                siparis.SiparisDetaylar.Remove(sipDetay);
+                db.SaveChanges();
             }
 
             TutarGuncelle();
@@ -173,8 +179,14 @@ namespace KafeKod
             }
 
             siparis.MasaNo = hedefMasaNo;
+            db.SaveChanges();
             MasaNoGuncelle();
             MasaNoYukle();
+        }
+
+        private void SiparisForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 
