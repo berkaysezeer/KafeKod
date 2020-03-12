@@ -28,7 +28,7 @@ namespace KafeKod
             MasaNoYukle();
             MasaNoGuncelle();
             TutarGuncelle();
-            cboUrun.DataSource = db.Urunler.ToList();
+            cboUrun.DataSource = db.Urunler.Where(x => !x.StoktaYok).ToList(); //stokta yoksa true -- false olanlari getir
             dgvSiparisDetay.DataSource = siparis.SiparisDetaylar;
         }
 

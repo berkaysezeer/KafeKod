@@ -20,7 +20,7 @@ namespace KafeKod
             db = kafeVeri;
             InitializeComponent();
 
-            dgvSiparisler.DataSource = db.Siparisler.Where(x => x.Durum != SiparisDurum.Aktif);
+            dgvSiparisler.DataSource = db.Siparisler.Where(x => x.Durum != SiparisDurum.Aktif).ToList();
         }
 
         private void dgvSiparisler_SelectionChanged(object sender, EventArgs e)
@@ -33,6 +33,11 @@ namespace KafeKod
 
 
             }
+        }
+
+        private void GecmisSiparisForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

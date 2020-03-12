@@ -11,12 +11,18 @@ namespace KafeKod.Data
     [Table("Urunler")]
     public class Urun
     {
+        public Urun()
+        {
+            SiparisDetay = new List<SiparisDetay>();
+        }
+
         public int Id { get; set; }
         [Required, MaxLength(50)]
         public string UrunAd { get; set; }
         public decimal BirimFiyat { get; set; }
+        public bool StoktaYok { get; set; }
 
-        public virtual List<SiparisDetay> SiparisDetay { get; set; } 
+        public virtual List<SiparisDetay> SiparisDetay { get; set; }
 
         public override string ToString()
         {

@@ -121,6 +121,7 @@
             this.MinimumSize = new System.Drawing.Size(800, 520);
             this.Name = "GecmisSiparisForm";
             this.Text = "GecmisSiaprisForm";
+            this.Load += new System.EventHandler(this.GecmisSiparisForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvSiparisler)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSiparisDetay)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
